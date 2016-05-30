@@ -89,7 +89,7 @@ function getRouteId(routeSlot) {
     "providence/stoughton line": "CR-Providence",
   }
   var routeSlot = routeSlot.toLowerCase();
-  return ROUTE_MAPPINGS[routeSlot] || "CR-Haverhill";
+  return ROUTE_MAPPINGS[routeSlot] || "none";
 }
 
 /**
@@ -150,8 +150,15 @@ function getRouteAlerts(route, callback) {
   var sessionAttributes = {};
   var shouldEndSession = false;
   var speechOutput = "I could not find this information.";
+  
+  if (route === "none") {
+    repromptText = "I'm sorry. I did not catch that. Please specify a route to get alert information for.";
+    speechOutput = "";
+       
+    callback(sessionAttributes,
+        buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
+  }
 
-  console.log('route', route);
   var votdProperties = {
     uri: 'http://realtime.mbta.com/developer/api/v2/alertsbyroute?api_key=wX9NwuHnZU2ToO7GmGR9uw&route=' + route + '&include_service_alerts=true&format=json',
     json: true,

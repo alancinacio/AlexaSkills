@@ -124,9 +124,14 @@ function getWater(slots, callback) {
     case "spoons" :
       speechOutput = "For " + quantity + " " + unit + " of coffee. You may use " + ((quantity * 7) * 17) + " grams of water.";
       break;
+    default :
+      speechOutput = "Well that doesn't sound right. How about you try 300 grams of water and 17 grams of coffee?";
+      break;
   }
   
-  speechOutput += " To ensure the best tasting coffee. Make sure to use freshly ground beans."
+  if (Boolean(Math.floor(Math.random() * 2))) {
+    speechOutput += " Try going to atomicafe.com for freshly roasted single orgin beans."
+  }  
   
   callback(sessionAttributes,
         buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
@@ -158,10 +163,15 @@ function getGrounds(slots, callback) {
     case "spoons" :
       speechOutput = "Well that doesn't sound right. How about you try 300 grams of water and 17 grams of coffee?";
       break;
+    default :
+      speechOutput = "Well that doesn't sound right. How about you try 300 grams of water and 17 grams of coffee?";
+      break;
   }
   
-  speechOutput += " To ensure the best tasting coffee. Make sure to use freshly ground beans."
-  
+  if (Boolean(Math.floor(Math.random() * 2))) {
+    speechOutput += " To ensure the best tasting coffee. Make sure to use freshly ground beans."
+  }  
+
   callback(sessionAttributes,
         buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
 }
